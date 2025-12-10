@@ -31,7 +31,7 @@ export function InputSection({
         <div className="space-y-6 max-w-2xl mx-auto">
             {/* Job Offer Input */}
             <div className="group space-y-3">
-                <div className="flex items-center gap-2 text-foreground/80">
+                <div className="flex flex-wrap items-center gap-2 text-foreground/80">
                     <Briefcase className="w-4 h-4" />
                     <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Job Description</h2>
                     <span className="text-xs text-muted-foreground/60 ml-auto italic">
@@ -40,7 +40,7 @@ export function InputSection({
                 </div>
                 <div className="relative">
                     <textarea
-                        className="w-full h-48 rounded-xl bg-white border border-transparent shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] transition-all p-5 text-sm leading-relaxed resize-none focus:outline-none focus:ring-1 focus:ring-ring/20 placeholder:text-muted-foreground/60"
+                        className="w-full h-48 rounded-xl bg-white border border-black/5 shadow-[0_2px_8px_rgba(0,0,0,0.08)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.12)] transition-all p-3 md:p-5 text-sm leading-relaxed resize-none focus:outline-none focus:ring-1 focus:ring-ring/20 placeholder:text-muted-foreground/80"
                         placeholder="Paste the job offer details here..."
                         value={jobOffer}
                         onChange={(e) => setJobOffer(e.target.value)}
@@ -70,7 +70,7 @@ export function InputSection({
                         onChange={handleFileChange}
                     />
 
-                    <div className="flex items-center justify-between p-4 min-h-[80px]">
+                    <div className="flex items-center justify-between p-3 md:p-4 min-h-[80px]">
                         <div className="flex items-center gap-4">
                             <div className={cn(
                                 "w-10 h-10 rounded-lg flex items-center justify-center transition-colors",

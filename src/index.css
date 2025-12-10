@@ -35,29 +35,30 @@
   :root {
     /* Anthropic / Geist Style: Warm, Muted, Paper-like */
 
-    /* Background: Very soft warm grey/beige (Paper) */
-    --background: 28 20% 98%;
-    /* #faf9f6 - Warm Paper White */
-    --foreground: 220 15% 15%;
-    /* #20232a - Soft Black */
+    /* Background: Warm Sand / Biscuit - Darkened for contrast */
+    --background: 36 29% 90%;
+    /* #ebe6df */
+    --foreground: 25 15% 15%;
+    /* #2c2724 - Warm Charcoal */
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 15% 15%;
+    --card: 36 30% 97%;
+    /* #f8f6f3 */
+    --card-foreground: 25 15% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 15%;
+    --popover: 36 30% 97%;
+    --popover-foreground: 25 15% 15%;
 
-    /* Primary: Deep Forest or Charcoal */
-    --primary: 27 15% 18%;
-    /* Dark Warm Grey/Brown */
-    --primary-foreground: 30 20% 98%;
+    /* Primary: Deep Warm Charcoal/Brown */
+    --primary: 25 20% 20%;
+    /* #3d322e */
+    --primary-foreground: 36 30% 98%;
 
-    --secondary: 30 15% 94%;
-    /* Warm Grey */
-    --secondary-foreground: 220 15% 15%;
+    --secondary: 32 18% 88%;
+    /* Warm Grey/Beige */
+    --secondary-foreground: 25 15% 15%;
 
-    --muted: 30 15% 94%;
-    --muted-foreground: 215 10% 45%;
+    --muted: 32 18% 88%;
+    --muted-foreground: 25 10% 45%;
 
     --accent: 30 20% 92%;
     /* Warm Beige Accent */
@@ -113,7 +114,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased selection:bg-[#d0c8b6] selection:text-black;
+    @apply bg-background text-foreground font-sans antialiased selection:bg-[#e6d0a7] selection:text-[#2c2724];
   }
 
   h1,

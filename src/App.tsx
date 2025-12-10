@@ -118,9 +118,9 @@ ${cvText}
     <div className="min-h-screen bg-background font-sans text-foreground selection:bg-primary/10 selection:text-primary">
       <Header />
 
-      <main className="container max-w-5xl mx-auto px-6 py-12 md:py-20">
-        <div className="max-w-2xl mx-auto text-center mb-16 space-y-6">
-          <h1 className="text-4xl md:text-5xl font-serif font-medium tracking-tight text-foreground text-nowrap">
+      <main className="container max-w-5xl mx-auto px-4 md:px-6 py-8 md:py-20">
+        <div className="max-w-2xl mx-auto text-center mb-10 md:mb-16 space-y-4 md:space-y-6">
+          <h1 className="text-2xl md:text-5xl font-serif font-medium tracking-tight text-foreground text-nowrap">
             Align perfectly with the role.
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed font-sans max-w-lg mx-auto">

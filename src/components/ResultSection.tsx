@@ -45,7 +45,7 @@ export function ResultSection({ result }: ResultSectionProps) {
                             key={index}
                             className="group bg-white rounded-xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.06)] transition-all duration-300 overflow-hidden"
                         >
-                            <div className="p-6 md:p-8 space-y-6">
+                            <div className="p-3 md:p-8 space-y-6">
                                 {/* Header */}
                                 <div className="flex items-start gap-4">
                                     <div className="shrink-0 w-8 h-8 rounded-full bg-primary/5 text-primary flex items-center justify-center font-bold text-sm">
@@ -58,9 +58,9 @@ export function ResultSection({ result }: ResultSectionProps) {
                                     </div>
                                 </div>
 
-                                <div className="grid md:grid-cols-2 gap-6 ml-12">
+                                <div className="grid md:grid-cols-2 gap-6 ml-0 md:ml-12">
                                     {/* Reason */}
-                                    <div className="bg-secondary/30 rounded-lg p-5 border border-border/50">
+                                    <div className="bg-secondary/30 rounded-lg p-3 md:p-5 border border-border/50">
                                         <div className="flex items-center gap-2 mb-3 text-primary/70">
                                             <Lightbulb className="w-4 h-4" />
                                             <span className="text-xs font-semibold uppercase tracking-wide">Why this matters</span>
