@@ -1,0 +1,120 @@
+import { useRef } from 'react';
+import { Upload, FileText, Briefcase } from 'lucide-react';
+import { cn } from '../lib/utils';
+
+interface InputSectionProps {
+    jobOffer: string;
+    setJobOffer: (offer: string) => void;
+    fileName: string | null;
+    onFileUpload: (file: File) => void;
+    onAnalyze: () => void;
+    isLoading: boolean;
+}
+
+export function InputSection({
+    jobOffer,
+    setJobOffer,
+    fileName,
+    onFileUpload,
+    onAnalyze,
+    isLoading
+}: InputSectionProps) {
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            onFileUpload(e.target.files[0]);
+        }
+    };
+
+    return (
+        <div className="space-y-6 max-w-2xl mx-auto">
+            {/* Job Offer Input */}
+            <div className="group space-y-3">
+                <div className="flex items-center gap-2 text-foreground/80">
+                    <Briefcase className="w-4 h-4" />
+                    <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Job Description</h2>
+                </div>
+                <div className="relative">
+                    <textarea
+                        className="w-full h-48 rounded-xl bg-white border border-transparent shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] transition-all p-5 text-sm leading-relaxed resize-none focus:outline-none focus:ring-1 focus:ring-ring/20 placeholder:text-muted-foreground/60"
+                        placeholder="Paste the job offer details here..."
+                        value={jobOffer}
+                        onChange={(e) => setJobOffer(e.target.value)}
+                    />
+                </div>
+            </div>
+
+            {/* CV Upload */}
+            <div className="space-y-3">
+                <div className="flex items-center gap-2 text-foreground/80">
+                    <FileText className="w-4 h-4" />
+                    <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Your Resume</h2>
+                </div>
+
+                <div
+                    className={cn(
+                        "relative group cursor-pointer overflow-hidden rounded-xl border border-dashed border-gray-200 bg-white hover:bg-gray-50/50 transition-all duration-300",
+                        fileName ? "border-green-200 bg-green-50/30" : ""
+                    )}
+                    onClick={() => fileInputRef.current?.click()}
+                >
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        className="hidden"
+                        accept=".pdf"
+                        onChange={handleFileChange}
+                    />
+
+                    <div className="flex items-center justify-between p-4 min-h-[80px]">
+                        <div className="flex items-center gap-4">
+                            <div className={cn(
+                                "w-10 h-10 rounded-lg flex items-center justify-center transition-colors",
+                                fileName ? "bg-green-100 text-green-600" : "bg-gray-100 text-gray-500 group-hover:bg-gray-200"
+                            )}>
+                                {fileName ? <FileText className="w-5 h-5" /> : <Upload className="w-5 h-5" />}
+                            </div>
+                            <div className="space-y-0.5">
+                                <p className="font-medium text-sm text-foreground">
+                                    {fileName || "Click to upload PDF"}
+                                </p>
+                                <p className="text-xs text-muted-foreground">
+                                    {fileName ? "Ready for analysis" : "Maximum file size 10MB"}
+                                </p>
+                            </div>
+                        </div>
+                        {fileName && (
+                            <span className="text-xs font-medium text-green-600 bg-green-100 px-2.5 py-1 rounded-full">
+                                Uploaded
+                            </span>
+                        )}
+                    </div>
+                </div>
+            </div>
+
+            {/* Action Button */}
+            <div className="pt-4">
+                <button
+                    onClick={onAnalyze}
+                    disabled={isLoading || !jobOffer || !fileName}
+                    className={cn(
+                        "w-full h-12 rounded-lg text-sm font-medium shadow-md transition-all",
+                        isLoading || !jobOffer || !fileName
+                            ? "bg-gray-100 text-gray-400 shadow-none cursor-not-allowed"
+                            : "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-lg hover:-translate-y-0.5"
+                    )}
+                >
+                    {isLoading ? (
+                        <div className="flex items-center justify-center gap-2">
+                            <div className="animate-spin rounded-full h-4 w-4 border-2 border-white/20 border-t-white"></div>
+                            <span>Analyzing...</span>
+                        </div>
+                    ) : (
+                        "Generate Optimization Tips"
+                    )}
+                </button>
+            </div>
+        </div>
+    );
+}
