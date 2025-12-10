@@ -34,6 +34,9 @@ export function InputSection({
                 <div className="flex items-center gap-2 text-foreground/80">
                     <Briefcase className="w-4 h-4" />
                     <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Job Description</h2>
+                    <span className="text-xs text-muted-foreground/60 ml-auto italic">
+                        Note: We only support English at this time.
+                    </span>
                 </div>
                 <div className="relative">
                     <textarea

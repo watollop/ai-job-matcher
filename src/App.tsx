@@ -53,6 +53,14 @@ function App() {
         throw new Error('The uploaded document does not appear to be a CV/Resume. We couldn\'t find common sections like "Experience", "Education", or "Skills".');
       }
 
+      // Heuristic: Check for common Job Description keywords
+      const jobKeywords = ['responsibilities', 'qualifications', 'requirements', 'skills', 'experience', 'role', 'team', 'work', 'job', 'position', 'duties', 'about us'];
+      const hasJobKeywords = jobKeywords.some(keyword => jobOffer.toLowerCase().includes(keyword));
+
+      if (!hasJobKeywords || jobOffer.trim().length < 20) {
+        throw new Error('The text provided does not look like a Job Description. Please ensure it contains details about the role, requirements, or responsibilities.');
+      }
+
       const genAI = new GoogleGenerativeAI(apiKey);
 
       const generateWithFallback = async (currentPrompt: string) => {
