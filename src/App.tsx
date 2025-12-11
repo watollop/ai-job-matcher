@@ -123,8 +123,8 @@ ${cvText}
           <h1 className="text-3xl md:text-6xl font-serif font-medium tracking-tight text-primary-foreground text-nowrap">
             Align perfectly with the role
           </h1>
-          <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed font-sans max-w-2xl mx-auto font-light">
-            Drop in your resume and a job description. We’ll analyze the alignment and give you 5 actionable tips to <span className="font-semibold text-white">triple your interview chances</span>
+          <p className="text-lg text-primary-foreground/80 leading-relaxed font-sans max-w-2xl mx-auto font-light">
+            Drop your resume and a job description. Our AI analyzes the alignment and gives you 5 actionable tips to <span className="font-semibold text-white">triple your interview chances</span>
           </p>
         </div>
       </section>
