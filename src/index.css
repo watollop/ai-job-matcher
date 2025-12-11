@@ -35,42 +35,43 @@
   :root {
     /* Anthropic / Geist Style: Warm, Muted, Paper-like */
 
-    /* Background: Warm Sand / Biscuit - Darkened for contrast */
-    --background: 36 29% 90%;
-    /* #ebe6df */
-    --foreground: 25 15% 15%;
+    /* Background: Warm Sand / Biscuit (#f0eee7) */
+    --background: hsl(47 27% 92%);
+    /* #f0eee7 */
+    --foreground: hsl(25 15% 15%);
     /* #2c2724 - Warm Charcoal */
 
-    --card: 36 30% 97%;
+    --card: hsl(36 30% 97%);
     /* #f8f6f3 */
-    --card-foreground: 25 15% 15%;
+    --card-foreground: hsl(25 15% 15%);
 
-    --popover: 36 30% 97%;
-    --popover-foreground: 25 15% 15%;
+    --popover: hsl(36 30% 97%);
+    --popover-foreground: hsl(25 15% 15%);
 
     /* Primary: Deep Warm Charcoal/Brown */
-    --primary: 25 20% 20%;
+    --primary: hsl(25 20% 20%);
     /* #3d322e */
-    --primary-foreground: 36 30% 98%;
+    --primary-foreground: hsl(36 30% 98%);
 
-    --secondary: 32 18% 88%;
+    --secondary: hsl(32 18% 88%);
     /* Warm Grey/Beige */
-    --secondary-foreground: 25 15% 15%;
+    --secondary-foreground: hsl(25 15% 15%);
 
-    --muted: 32 18% 88%;
-    --muted-foreground: 25 10% 45%;
+    --muted: hsl(32 18% 88%);
+    --muted-foreground: hsl(25 10% 45%);
 
-    --accent: 30 20% 92%;
+    --accent: hsl(30 20% 92%);
     /* Warm Beige Accent */
-    --accent-foreground: 220 15% 15%;
+    --accent-foreground: hsl(220 15% 15%);
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: hsl(15 52% 58%);
+    /* #CC785C - Terracotta */
+    --destructive-foreground: hsl(0 0% 100%);
 
-    --border: 30 15% 90%;
+    --border: hsl(30 15% 90%);
     /* Warm Border */
-    --input: 30 15% 90%;
-    --ring: 27 15% 18%;
+    --input: hsl(30 15% 90%);
+    --ring: hsl(27 15% 18%);
     /* Match Primary */
 
     --radius: 0.5rem;
@@ -78,33 +79,33 @@
 
   .dark {
     /* Adjust for dark mode if needed, focusing on warm dark greys */
-    --background: 220 15% 10%;
-    --foreground: 30 20% 98%;
+    --background: hsl(220 15% 10%);
+    --foreground: hsl(30 20% 98%);
 
-    --card: 220 15% 12%;
-    --card-foreground: 30 20% 98%;
+    --card: hsl(220 15% 12%);
+    --card-foreground: hsl(30 20% 98%);
 
-    --popover: 220 15% 12%;
-    --popover-foreground: 30 20% 98%;
+    --popover: hsl(220 15% 12%);
+    --popover-foreground: hsl(30 20% 98%);
 
-    --primary: 30 20% 98%;
-    --primary-foreground: 220 15% 10%;
+    --primary: hsl(30 20% 98%);
+    --primary-foreground: hsl(220 15% 10%);
 
-    --secondary: 215 15% 18%;
-    --secondary-foreground: 30 20% 98%;
+    --secondary: hsl(215 15% 18%);
+    --secondary-foreground: hsl(30 20% 98%);
 
-    --muted: 215 15% 18%;
-    --muted-foreground: 215 15% 65%;
+    --muted: hsl(215 15% 18%);
+    --muted-foreground: hsl(215 15% 65%);
 
-    --accent: 215 15% 18%;
-    --accent-foreground: 30 20% 98%;
+    --accent: hsl(215 15% 18%);
+    --accent-foreground: hsl(30 20% 98%);
 
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 30 20% 98%;
+    --destructive: hsl(0 62% 30%);
+    --destructive-foreground: hsl(30 20% 98%);
 
-    --border: 215 15% 18%;
-    --input: 215 15% 18%;
-    --ring: 212 26% 83%;
+    --border: hsl(215 15% 18%);
+    --input: hsl(215 15% 18%);
+    --ring: hsl(212 26% 83%);
   }
 }
 

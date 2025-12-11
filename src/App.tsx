@@ -118,34 +118,40 @@ ${cvText}
     <div className="min-h-screen bg-background font-sans text-foreground selection:bg-primary/10 selection:text-primary">
       <Header />
 
-      <main className="container max-w-5xl mx-auto px-4 md:px-6 py-8 md:py-20">
-        <div className="max-w-2xl mx-auto text-center mb-10 md:mb-16 space-y-4 md:space-y-6">
-          <h1 className="text-2xl md:text-5xl font-serif font-medium tracking-tight text-foreground text-nowrap">
-            Align perfectly with the role.
+      <section className="w-full bg-primary py-16 md:py-24 pb-32">
+        <div className="container max-w-5xl mx-auto px-4 md:px-6 text-center space-y-6">
+          <h1 className="text-3xl md:text-6xl font-serif font-medium tracking-tight text-primary-foreground text-nowrap">
+            Align perfectly with the role
           </h1>
-          <p className="text-lg text-muted-foreground leading-relaxed font-sans max-w-lg mx-auto">
-            Intelligent analysis to bridge the gap between your experience and the job requirements.
+          <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed font-sans max-w-2xl mx-auto font-light">
+            Drop in your resume and a job description. We’ll analyze the alignment and give you 5 actionable tips to <span className="font-semibold text-white">triple your interview chances</span>
           </p>
         </div>
+      </section>
 
-        {error && (
-          <div className="max-w-2xl mx-auto mb-8 bg-destructive/5 border border-destructive/20 p-4 rounded-lg flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-destructive mt-0.5" />
-            <div>
-              <h3 className="text-sm font-semibold text-destructive">Unable to process</h3>
-              <p className="text-sm text-destructive/80 mt-1">{error}</p>
-            </div>
+      <main className="container max-w-5xl mx-auto px-4 md:px-6 relative z-10 pb-20">
+        <div className="-mt-20 max-w-3xl mx-auto">
+          <div className="bg-background rounded-2xl shadow-xl p-6 md:p-8 border border-border/50">
+            {error && (
+              <div className="mb-8 bg-destructive/5 border border-destructive/20 p-4 rounded-lg flex items-start gap-3 shadow-sm bg-white">
+                <AlertCircle className="w-5 h-5 text-destructive mt-0.5" />
+                <div>
+                  <h3 className="text-sm font-semibold text-destructive">Unable to process</h3>
+                  <p className="text-sm text-destructive/80 mt-1">{error}</p>
+                </div>
+              </div>
+            )}
+
+            <InputSection
+              jobOffer={jobOffer}
+              setJobOffer={setJobOffer}
+              fileName={cvFile ? cvFile.name : null}
+              onFileUpload={handleFileUpload}
+              onAnalyze={handleAnalyze}
+              isLoading={isLoading}
+            />
           </div>
-        )}
-
-        <InputSection
-          jobOffer={jobOffer}
-          setJobOffer={setJobOffer}
-          fileName={cvFile ? cvFile.name : null}
-          onFileUpload={handleFileUpload}
-          onAnalyze={handleAnalyze}
-          isLoading={isLoading}
-        />
+        </div>
 
         <ResultSection result={result || ''} />
       </main>

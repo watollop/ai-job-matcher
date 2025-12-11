@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Upload, FileText, Briefcase } from 'lucide-react';
 import { cn } from '../lib/utils';
 
@@ -11,6 +11,14 @@ interface InputSectionProps {
     isLoading: boolean;
 }
 
+const LOADING_MESSAGES = [
+    "Reading Resume...",
+    "Analyzing Job Description...",
+    "Comparing Experience...",
+    "Generating Insights...",
+    "Polishing Suggestions..."
+];
+
 export function InputSection({
     jobOffer,
     setJobOffer,
@@ -20,6 +28,22 @@ export function InputSection({
     isLoading
 }: InputSectionProps) {
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [loadingText, setLoadingText] = useState(LOADING_MESSAGES[0]);
+
+    useEffect(() => {
+        if (!isLoading) {
+            setLoadingText(LOADING_MESSAGES[0]);
+            return;
+        }
+
+        let index = 0;
+        const interval = setInterval(() => {
+            index = (index + 1) % LOADING_MESSAGES.length;
+            setLoadingText(LOADING_MESSAGES[index]);
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, [isLoading]);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -110,8 +134,8 @@ export function InputSection({
                 >
                     {isLoading ? (
                         <div className="flex items-center justify-center gap-2">
-                            <div className="animate-spin rounded-full h-4 w-4 border-2 border-white/20 border-t-white"></div>
-                            <span>Analyzing...</span>
+                            <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-300 border-t-primary"></div>
+                            <span className="animate-in fade-in duration-300 min-w-[160px] text-center">{loadingText}</span>
                         </div>
                     ) : (
                         "Generate Optimization Tips"

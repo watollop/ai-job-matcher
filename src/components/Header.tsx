@@ -11,9 +11,6 @@ export function Header() {
                     <span className="font-serif font-bold text-lg tracking-tight text-foreground">JobMatcher.ai</span>
                 </div>
                 <nav>
-                    <a href="#" className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors font-sans uppercase tracking-widest">
-                        Beta v0.1
-                    </a>
                 </nav>
             </div>
         </header>

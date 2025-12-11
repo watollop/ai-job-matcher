@@ -1,4 +1,4 @@
-
+import { useRef, useEffect } from 'react';
 import { Sparkles, ArrowRight, Lightbulb } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
@@ -14,6 +14,17 @@ interface AdviceCard {
 }
 
 export function ResultSection({ result }: ResultSectionProps) {
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (result && sectionRef.current) {
+            // Small timeout to ensure DOM is ready and animation has started
+            setTimeout(() => {
+                sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+    }, [result]);
+
     if (!result) return null;
 
     let cards: AdviceCard[] | null = null;
@@ -30,7 +41,10 @@ export function ResultSection({ result }: ResultSectionProps) {
     }
 
     return (
-        <div className="max-w-4xl mx-auto mt-12 mb-20 animate-in fade-in slide-in-from-bottom-8 duration-700 ease-out">
+        <div
+            ref={sectionRef}
+            className="max-w-4xl mx-auto mt-12 mb-20 animate-in fade-in slide-in-from-bottom-8 duration-700 ease-out scroll-mt-24"
+        >
             <div className="flex items-center gap-2 mb-6 px-1">
                 <Sparkles className="w-5 h-5 text-indigo-500" />
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
@@ -74,9 +88,9 @@ export function ResultSection({ result }: ResultSectionProps) {
                                     <div className="bg-white rounded-lg p-5 border border-border shadow-sm ring-1 ring-black/5 flex flex-col gap-4">
 
                                         {/* Before Box */}
-                                        <div className="bg-red-50/50 rounded border border-red-100/60 p-3">
-                                            <div className="flex items-center gap-1.5 mb-2 text-red-700/80">
-                                                <span className="text-[10px] font-bold uppercase tracking-wider border border-red-200 px-1 py-0.5 rounded bg-white">Before</span>
+                                        <div className="bg-destructive/10 rounded border border-destructive/20 p-3">
+                                            <div className="flex items-center gap-1.5 mb-2 text-destructive">
+                                                <span className="text-[10px] font-bold uppercase tracking-wider border border-destructive/30 px-1 py-0.5 rounded bg-white">Before</span>
                                             </div>
                                             <div className="text-sm text-foreground/80 leading-relaxed font-mono text-xs opacity-80">
                                                 <ReactMarkdown>{card.proposal_before}</ReactMarkdown>
