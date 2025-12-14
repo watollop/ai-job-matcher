@@ -230,10 +230,20 @@ function App() {
         }
       };
 
+
       const systemPrompt = `
           Act as an expert HR Recruiter and Resume Optimizer. I will provide a Job Description and a Generic Resume. 
           Your task is to analyze the gap between the two and provide strictly the top 10 most impactful changes to tailor the resume for this specific role.
     
+          ${scoringResult ? `
+          PRIORITY INSTRUCTIONS:
+          An initial algorithmic analysis has detected the following specific weaknesses in the candidate's profile. You MUST address these in your tips if they are relevant:
+          - Missing Critical Skills: ${scoringResult.analysis.critical_skills_missing?.join(', ') || "None predicted"}
+          - Red Flags/Risks: ${scoringResult.analysis.red_flags.join(', ') || "None predicted"}
+          
+          Ensure your first few tips explicitly suggest how to add or demonstrate these missing skills/mitigate these risks.
+          ` : ''}
+
           Output Requirement:
           - Return ONLY a valid JSON array. Do not wrap it in markdown code blocks (e.g. no \`\`\`json).
           - The array must contain exactly 10 objects.

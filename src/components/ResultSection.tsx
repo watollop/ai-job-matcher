@@ -1,7 +1,8 @@
 import { useRef, useEffect, useState } from 'react';
-import { Sparkles, ArrowRight, Lightbulb, Loader2, Coffee, AlertTriangle, CheckCircle, Info } from 'lucide-react';
+import { Sparkles, ArrowRight, Lightbulb, Coffee, AlertTriangle, CheckCircle, Info } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { cn } from '../lib/utils';
+import { LoadingWithSupport } from './LoadingWithSupport';
 
 export interface ScoringResult {
     // ... existing interface ...
@@ -56,20 +57,7 @@ const TOOLTIP_TEXTS: Record<string, string> = {
 };
 
 // ... BuyMeCoffeeButton ...
-function BuyMeCoffeeButton() {
-    return (
-        <a
-            href="https://www.buymeacoffee.com/watollop"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-3 bg-[#FFDD00] text-black font-semibold rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
-            style={{ fontFamily: 'Cookie, cursive' }}
-        >
-            <Coffee className="w-5 h-5" />
-            <span className="text-lg">Buy me a coffee</span>
-        </a>
-    );
-}
+
 
 export function ResultSection({ scoringResult, tipsResult, onGenerateTips, isGeneratingTips }: ResultSectionProps) {
     const sectionRef = useRef<HTMLDivElement>(null);
@@ -321,10 +309,7 @@ export function ResultSection({ scoringResult, tipsResult, onGenerateTips, isGen
                         </>
                     )}
                     {isGeneratingTips && (
-                        <div className="flex items-center gap-3 text-primary animate-pulse">
-                            <Loader2 className="w-5 h-5 animate-spin" />
-                            <span className="font-medium">Analyzing gap and generating specific advice...</span>
-                        </div>
+                        <LoadingWithSupport message="Analyzing gap and generating specific advice..." />
                     )}
                 </div>
             </div>
@@ -346,18 +331,7 @@ export function ResultSection({ scoringResult, tipsResult, onGenerateTips, isGen
                             {hasMoreCards && !showAllTips && (
                                 <div className="flex flex-col items-center gap-6 py-8 border-t border-border/50 mt-4">
                                     {isLoadingMoreTips ? (
-                                        <>
-                                            <div className="flex flex-col items-center gap-4">
-                                                <div className="flex items-center gap-3 text-primary">
-                                                    <Loader2 className="w-6 h-6 animate-spin" />
-                                                    <span className="text-lg font-medium">Preparing more insights...</span>
-                                                </div>
-                                                <p className="text-sm text-muted-foreground text-center max-w-md">
-                                                    While you wait, consider supporting this free tool!
-                                                </p>
-                                            </div>
-                                            <BuyMeCoffeeButton />
-                                        </>
+                                        <LoadingWithSupport message="Preparing more insights..." />
                                     ) : (
                                         <div className="flex flex-wrap items-center justify-center gap-4">
                                             <button
@@ -367,7 +341,7 @@ export function ResultSection({ scoringResult, tipsResult, onGenerateTips, isGen
                                                 <span>Show {remainingCards.length} More Tips</span>
                                                 <ArrowRight className="w-4 h-4" />
                                             </button>
-                                            <BuyMeCoffeeButton />
+                                            {/* Optional: keep button here or remove if redundant */}
                                         </div>
                                     )}
                                 </div>
@@ -377,10 +351,21 @@ export function ResultSection({ scoringResult, tipsResult, onGenerateTips, isGen
 
                             {showAllTips && (
                                 <div className="flex flex-col items-center gap-4 py-8 border-t border-border/50 mt-4">
-                                    <p className="text-sm text-muted-foreground text-center">
-                                        Found these tips helpful? Support the creator!
-                                    </p>
-                                    <BuyMeCoffeeButton />
+                                    <div className="flex flex-col items-center gap-6 py-4">
+                                        <p className="text-sm text-muted-foreground text-center">
+                                            Found these tips helpful? Support the creator!
+                                        </p>
+                                        <a
+                                            href="https://www.buymeacoffee.com/watollop"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 px-5 py-3 bg-[#FFDD00] text-black font-semibold rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200"
+                                            style={{ fontFamily: 'Cookie, cursive' }}
+                                        >
+                                            <Coffee className="w-5 h-5" />
+                                            <span className="text-lg">Buy me a coffee</span>
+                                        </a>
+                                    </div>
                                 </div>
                             )}
                         </div>

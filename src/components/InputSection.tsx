@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { Upload, FileText, Briefcase } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { LoadingWithSupport } from './LoadingWithSupport';
 
 interface InputSectionProps {
     jobOffer: string;
@@ -127,20 +128,19 @@ export function InputSection({
                     disabled={isLoading || !jobOffer || !fileName}
                     className={cn(
                         "w-full h-12 rounded-lg text-sm font-medium shadow-md transition-all",
-                        isLoading || !jobOffer || !fileName
+                        isLoading ? "hidden" : "",
+                        !jobOffer || !fileName
                             ? "bg-gray-100 text-gray-400 shadow-none cursor-not-allowed"
                             : "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-lg hover:-translate-y-0.5"
                     )}
                 >
-                    {isLoading ? (
-                        <div className="flex items-center justify-center gap-2">
-                            <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-300 border-t-primary"></div>
-                            <span className="animate-in fade-in duration-300 min-w-[160px] text-center">{loadingText}</span>
-                        </div>
-                    ) : (
-                        "Check Compatibility"
-                    )}
+                    Check Compatibility
                 </button>
+                {isLoading && (
+                    <div className="pt-2">
+                        <LoadingWithSupport message={loadingText} />
+                    </div>
+                )}
                 <p className="text-xs text-center text-muted-foreground/70">
                     🔒 Your data stays private — we don't store your resume or job descriptions.
                 </p>
