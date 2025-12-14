@@ -33,79 +33,81 @@
 
 @layer base {
   :root {
-    /* Anthropic / Geist Style: Warm, Muted, Paper-like */
+    /* AI-Themed Modern Palette: Deep Blues, Violet, Cyan */
 
-    /* Background: Warm Sand / Biscuit (#f0eee7) */
-    --background: hsl(47 27% 92%);
-    /* #f0eee7 */
-    --foreground: hsl(25 15% 15%);
-    /* #2c2724 - Warm Charcoal */
+    /* Background: Soft Cool White */
+    --background: hsl(220 20% 97%);
+    --foreground: hsl(222 47% 11%);
+    /* Deep Slate */
 
-    --card: hsl(36 30% 97%);
-    /* #f8f6f3 */
-    --card-foreground: hsl(25 15% 15%);
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(222 47% 11%);
 
-    --popover: hsl(36 30% 97%);
-    --popover-foreground: hsl(25 15% 15%);
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(222 47% 11%);
 
-    /* Primary: Deep Warm Charcoal/Brown */
-    --primary: hsl(25 20% 20%);
-    /* #3d322e */
-    --primary-foreground: hsl(36 30% 98%);
+    /* Primary: Deep Violet/Indigo - AI Feel */
+    --primary: hsl(250 60% 50%);
+    --primary-foreground: hsl(0 0% 100%);
 
-    --secondary: hsl(32 18% 88%);
-    /* Warm Grey/Beige */
-    --secondary-foreground: hsl(25 15% 15%);
+    --secondary: hsl(220 20% 94%);
+    --secondary-foreground: hsl(222 47% 11%);
 
-    --muted: hsl(32 18% 88%);
-    --muted-foreground: hsl(25 10% 45%);
+    --muted: hsl(220 20% 94%);
+    --muted-foreground: hsl(220 15% 45%);
 
-    --accent: hsl(30 20% 92%);
-    /* Warm Beige Accent */
-    --accent-foreground: hsl(220 15% 15%);
+    /* Accent: Cyan/Teal for AI glow effect */
+    --accent: hsl(185 80% 45%);
+    --accent-foreground: hsl(0 0% 100%);
 
-    --destructive: hsl(15 52% 58%);
-    /* #CC785C - Terracotta */
+    --destructive: hsl(0 72% 51%);
     --destructive-foreground: hsl(0 0% 100%);
 
-    --border: hsl(30 15% 90%);
-    /* Warm Border */
-    --input: hsl(30 15% 90%);
-    --ring: hsl(27 15% 18%);
-    /* Match Primary */
+    --border: hsl(220 20% 90%);
+    --input: hsl(220 20% 90%);
+    --ring: hsl(250 60% 50%);
 
     --radius: 0.5rem;
+
+    /* AI Gradient Colors */
+    --gradient-start: hsl(250 60% 50%);
+    --gradient-mid: hsl(280 70% 55%);
+    --gradient-end: hsl(185 80% 45%);
   }
 
   .dark {
-    /* Adjust for dark mode if needed, focusing on warm dark greys */
-    --background: hsl(220 15% 10%);
-    --foreground: hsl(30 20% 98%);
+    /* Dark mode: Deep space-like AI theme */
+    --background: hsl(222 47% 8%);
+    --foreground: hsl(210 40% 98%);
 
-    --card: hsl(220 15% 12%);
-    --card-foreground: hsl(30 20% 98%);
+    --card: hsl(222 47% 11%);
+    --card-foreground: hsl(210 40% 98%);
 
-    --popover: hsl(220 15% 12%);
-    --popover-foreground: hsl(30 20% 98%);
+    --popover: hsl(222 47% 11%);
+    --popover-foreground: hsl(210 40% 98%);
 
-    --primary: hsl(30 20% 98%);
-    --primary-foreground: hsl(220 15% 10%);
+    --primary: hsl(250 80% 65%);
+    --primary-foreground: hsl(0 0% 100%);
 
-    --secondary: hsl(215 15% 18%);
-    --secondary-foreground: hsl(30 20% 98%);
+    --secondary: hsl(222 47% 15%);
+    --secondary-foreground: hsl(210 40% 98%);
 
-    --muted: hsl(215 15% 18%);
-    --muted-foreground: hsl(215 15% 65%);
+    --muted: hsl(222 47% 15%);
+    --muted-foreground: hsl(215 20% 65%);
 
-    --accent: hsl(215 15% 18%);
-    --accent-foreground: hsl(30 20% 98%);
+    --accent: hsl(185 80% 50%);
+    --accent-foreground: hsl(222 47% 8%);
 
-    --destructive: hsl(0 62% 30%);
-    --destructive-foreground: hsl(30 20% 98%);
+    --destructive: hsl(0 62% 45%);
+    --destructive-foreground: hsl(210 40% 98%);
 
-    --border: hsl(215 15% 18%);
-    --input: hsl(215 15% 18%);
-    --ring: hsl(212 26% 83%);
+    --border: hsl(222 47% 18%);
+    --input: hsl(222 47% 18%);
+    --ring: hsl(250 80% 65%);
+
+    --gradient-start: hsl(250 80% 65%);
+    --gradient-mid: hsl(280 70% 60%);
+    --gradient-end: hsl(185 80% 50%);
   }
 }
 
@@ -115,7 +117,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased selection:bg-[#e6d0a7] selection:text-[#2c2724];
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary;
   }
 
   h1,

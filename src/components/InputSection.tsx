@@ -121,7 +121,7 @@ export function InputSection({
             </div>
 
             {/* Action Button */}
-            <div className="pt-4">
+            <div className="pt-4 space-y-3">
                 <button
                     onClick={onAnalyze}
                     disabled={isLoading || !jobOffer || !fileName}
@@ -138,9 +138,12 @@ export function InputSection({
                             <span className="animate-in fade-in duration-300 min-w-[160px] text-center">{loadingText}</span>
                         </div>
                     ) : (
-                        "Generate Optimization Tips"
+                        "Check Compatibility"
                     )}
                 </button>
+                <p className="text-xs text-center text-muted-foreground/70">
+                    🔒 Your data stays private — we don't store your resume or job descriptions.
+                </p>
             </div>
         </div>
     );
