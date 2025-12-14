@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import { Sparkles, ArrowRight, Lightbulb, Coffee, AlertTriangle, CheckCircle, Info } from 'lucide-react';
+import { Sparkles, ArrowRight, Lightbulb, Coffee, AlertTriangle, CheckCircle, Info, Copy, Check } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { cn } from '../lib/utils';
 import { LoadingWithSupport } from './LoadingWithSupport';
@@ -113,69 +113,88 @@ export function ResultSection({ scoringResult, tipsResult, onGenerateTips, isGen
     const remainingCards = cards?.slice(5) || [];
     const hasMoreCards = remainingCards.length > 0;
 
-    const renderCard = (card: AdviceCard, index: number) => (
-        <div
-            key={index}
-            className="group bg-white rounded-xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.06)] transition-all duration-300 overflow-hidden"
-        >
-            <div className="p-3 md:p-8 space-y-6">
-                {/* Header */}
-                <div className="flex items-start gap-4">
-                    <div className="shrink-0 w-8 h-8 rounded-full bg-primary/5 text-primary flex items-center justify-center font-bold text-sm">
-                        {index + 1}
+
+    function AdviceCardItem({ card, index }: { card: AdviceCard; index: number }) {
+        const [isCopied, setIsCopied] = useState(false);
+
+        const handleCopy = () => {
+            if (!card.proposal_after) return;
+            navigator.clipboard.writeText(card.proposal_after);
+            setIsCopied(true);
+            setTimeout(() => setIsCopied(false), 2000);
+        };
+
+        return (
+            <div
+                key={index}
+                className="group bg-white rounded-xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.06)] transition-all duration-300 overflow-hidden"
+            >
+                <div className="p-3 md:p-8 space-y-6">
+                    {/* Header */}
+                    <div className="flex items-start gap-4">
+                        <div className="shrink-0 w-8 h-8 rounded-full bg-primary/5 text-primary flex items-center justify-center font-bold text-sm">
+                            {index + 1}
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-semibold text-foreground leading-tight">
+                                {card.title}
+                            </h3>
+                        </div>
                     </div>
-                    <div>
-                        <h3 className="text-lg font-semibold text-foreground leading-tight">
-                            {card.title}
-                        </h3>
-                    </div>
-                </div>
 
-                <div className="grid md:grid-cols-2 gap-6 ml-0 md:ml-12">
-                    {/* Reason */}
-                    <div className="bg-secondary/30 rounded-lg p-3 md:p-5 border border-border/50">
-                        <div className="flex items-center gap-2 mb-3 text-primary/70">
-                            <Lightbulb className="w-4 h-4" />
-                            <span className="text-xs font-semibold uppercase tracking-wide">Why this matters</span>
-                        </div>
-                        <div className="text-sm text-foreground/90 leading-relaxed prose prose-sm max-w-none prose-p:my-1 prose-strong:font-semibold prose-strong:text-foreground">
-                            <ReactMarkdown>{card.reason}</ReactMarkdown>
-                        </div>
-                    </div>
-
-                    {/* Proposal (Before/After) */}
-                    <div className="bg-white rounded-lg p-5 border border-border shadow-sm ring-1 ring-black/5 flex flex-col gap-4">
-
-                        {/* Before Box */}
-                        <div className="bg-destructive/10 rounded border border-destructive/20 p-3">
-                            <div className="flex items-center gap-1.5 mb-2 text-destructive">
-                                <span className="text-[10px] font-bold uppercase tracking-wider border border-destructive/30 px-1 py-0.5 rounded bg-white">Before</span>
+                    <div className="grid md:grid-cols-2 gap-6 ml-0 md:ml-12">
+                        {/* Reason */}
+                        <div className="bg-secondary/30 rounded-lg p-3 md:p-5 border border-border/50">
+                            <div className="flex items-center gap-2 mb-3 text-primary/70">
+                                <Lightbulb className="w-4 h-4" />
+                                <span className="text-xs font-semibold uppercase tracking-wide">Why this matters</span>
                             </div>
-                            <div className="text-sm text-foreground/80 leading-relaxed font-mono text-xs opacity-80">
-                                <ReactMarkdown>{card.proposal_before}</ReactMarkdown>
+                            <div className="text-sm text-foreground/90 leading-relaxed prose prose-sm max-w-none prose-p:my-1 prose-strong:font-semibold prose-strong:text-foreground">
+                                <ReactMarkdown>{card.reason}</ReactMarkdown>
                             </div>
                         </div>
 
-                        {/* Arrow */}
-                        <div className="flex justify-center -my-2 opacity-30 text-emerald-500">
-                            <ArrowRight className="w-4 h-4 rotate-90" />
-                        </div>
+                        {/* Proposal (Before/After) */}
+                        <div className="bg-white rounded-lg p-5 border border-border shadow-sm ring-1 ring-black/5 flex flex-col gap-4">
 
-                        {/* After Box */}
-                        <div className="bg-emerald-50/50 rounded border border-emerald-100/60 p-3">
-                            <div className="flex items-center gap-1.5 mb-2 text-emerald-700/80">
-                                <span className="text-[10px] font-bold uppercase tracking-wider border border-emerald-200 px-1 py-0.5 rounded bg-white">After</span>
+                            {/* Before Box */}
+                            <div className="bg-destructive/10 rounded border border-destructive/20 p-3">
+                                <div className="flex items-center gap-1.5 mb-2 text-destructive">
+                                    <span className="text-[10px] font-bold uppercase tracking-wider border border-destructive/30 px-1 py-0.5 rounded bg-white">Before</span>
+                                </div>
+                                <div className="text-sm text-foreground/80 leading-relaxed font-mono text-xs opacity-80">
+                                    <ReactMarkdown>{card.proposal_before}</ReactMarkdown>
+                                </div>
                             </div>
-                            <div className="text-sm text-foreground/90 leading-relaxed font-medium">
-                                <ReactMarkdown>{card.proposal_after}</ReactMarkdown>
-                            </div>
-                        </div>
 
+                            {/* Arrow */}
+                            <div className="flex justify-center -my-2 opacity-30 text-emerald-500">
+                                <ArrowRight className="w-4 h-4 rotate-90" />
+                            </div>
+
+                            {/* After Box */}
+                            <div className="bg-emerald-50/50 rounded border border-emerald-100/60 p-3 relative group/copy">
+                                <div className="flex items-center justify-between mb-2 text-emerald-700/80">
+                                    <span className="text-[10px] font-bold uppercase tracking-wider border border-emerald-200 px-1 py-0.5 rounded bg-white">After</span>
+                                    <button
+                                        onClick={handleCopy}
+                                        className="opacity-0 group-hover/copy:opacity-100 transition-opacity p-1.5 hover:bg-emerald-200/50 rounded text-emerald-600 hover:text-emerald-800"
+                                        title="Copy text to clipboard"
+                                    >
+                                        {isCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                                    </button>
+                                </div>
+                                <div className="text-sm text-foreground/90 leading-relaxed font-medium">
+                                    <ReactMarkdown>{card.proposal_after}</ReactMarkdown>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 
     const { compatibility_score, analysis } = scoringResult;
     // ... scoreColor, scoreBg, scoreBorder ...
@@ -326,7 +345,9 @@ export function ResultSection({ scoringResult, tipsResult, onGenerateTips, isGen
 
                     {isJson && cards ? (
                         <div className="grid gap-6">
-                            {firstFiveCards.map((card, index) => renderCard(card, index))}
+                            {firstFiveCards.map((card, index) => (
+                                <AdviceCardItem key={index} card={card} index={index} />
+                            ))}
 
                             {hasMoreCards && !showAllTips && (
                                 <div className="flex flex-col items-center gap-6 py-8 border-t border-border/50 mt-4">
@@ -347,7 +368,9 @@ export function ResultSection({ scoringResult, tipsResult, onGenerateTips, isGen
                                 </div>
                             )}
 
-                            {showAllTips && remainingCards.map((card, index) => renderCard(card, index + 5))}
+                            {showAllTips && remainingCards.map((card, index) => (
+                                <AdviceCardItem key={index + 5} card={card} index={index + 5} />
+                            ))}
 
                             {showAllTips && (
                                 <div className="flex flex-col items-center gap-4 py-8 border-t border-border/50 mt-4">
