@@ -1,4 +1,4 @@
-import { Atom } from 'lucide-react';
+
 
 export function Header() {
     return (
@@ -6,7 +6,7 @@ export function Header() {
             <div className="container max-w-5xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                     <div className="bg-primary text-primary-foreground p-1.5 rounded-md">
-                        <Atom className="w-4 h-4" />
+                        <img src="/logo.png" alt="Logo" className="w-4 h-4" />
                     </div>
                     <span className="font-serif font-bold text-lg tracking-tight text-foreground">JobMatcher.ai</span>
                 </div>
