@@ -4,7 +4,7 @@ import { InputSection } from './components/InputSection';
 import { ResultSection } from './components/ResultSection';
 import { extractTextFromPDF } from './utils/pdfParser';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Github, Linkedin } from 'lucide-react';
 
 // Simple string hash function
 const generateHash = (str: string) => {
@@ -314,6 +314,21 @@ function App() {
           onGenerateTips={handleGenerateTips}
           isGeneratingTips={isGeneratingTips}
         />
+
+        {/* Footer */}
+        <footer className="mt-20 border-t border-border/40 py-8 text-center text-sm text-muted-foreground">
+          <div className="flex items-center justify-center gap-6 mb-4">
+            <a href="https://github.com/watollop/ai-job-matcher" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors flex items-center gap-2">
+              <Github className="w-4 h-4" />
+              <span>View Source</span>
+            </a>
+            <a href="https://www.linkedin.com/in/jordi-llopez/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors flex items-center gap-2">
+              <Linkedin className="w-4 h-4" />
+              <span>Jordi Llopez</span>
+            </a>
+          </div>
+          <p>© {new Date().getFullYear()} Job Scorer AI. Built with Gemini 2.5 Flash.</p>
+        </footer>
       </main>
     </div>
   );
