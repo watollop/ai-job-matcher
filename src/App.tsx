@@ -234,15 +234,15 @@ function App() {
     <div className="min-h-screen bg-background font-sans text-foreground selection:bg-primary/10 selection:text-primary">
       <Header />
 
-      <section className="w-full py-16 md:py-24 pb-32 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, hsl(250 60% 50%), hsl(280 70% 55%), hsl(250 80% 45%))' }}>
+      <section className="w-full py-16 md:py-24 pb-32 relative overflow-hidden border-b-4 border-[#7C3AED]" style={{ background: 'linear-gradient(135deg, #111827 0%, #1e1b4b 50%, #312e81 100%)' }}>
         {/* Animated glow effect */}
-        <div className="absolute inset-0 opacity-30" style={{ background: 'radial-gradient(circle at 30% 20%, hsl(185 80% 60% / 0.4) 0%, transparent 50%), radial-gradient(circle at 70% 80%, hsl(280 70% 60% / 0.3) 0%, transparent 50%)' }}></div>
+        <div className="absolute inset-0 opacity-30" style={{ background: 'radial-gradient(circle at 30% 20%, hsl(262 83% 58% / 0.2) 0%, transparent 50%), radial-gradient(circle at 70% 80%, hsl(280 70% 60% / 0.2) 0%, transparent 50%)' }}></div>
         <div className="container max-w-5xl mx-auto px-4 md:px-6 text-center space-y-6 relative z-10">
           <h1 className="text-3xl md:text-6xl font-serif font-medium tracking-tight text-white text-nowrap">
             AI-Powered Resume Alignment
           </h1>
           <p className="text-lg text-white/85 leading-relaxed font-sans max-w-2xl mx-auto font-light">
-            Drop your resume and a job description. Our AI analyzes the alignment and gives you 5 actionable tips to <span className="font-semibold text-cyan-300">triple your interview chances</span>
+            Drop your resume and a job description. Our AI analyzes the alignment and gives you 5 actionable tips to <span className="font-bold text-white underline decoration-[#7C3AED] decoration-4 underline-offset-4">triple your interview chances</span>
           </p>
         </div>
       </section>

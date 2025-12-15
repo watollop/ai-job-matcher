@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  /* Fonts - Using a serif for headings (Tiempos-like) and clean sans for body */
+  /* Fonts - Using Poppins for headings and Inter for body */
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-serif: 'Merriweather', 'Georgia', serif;
+  --font-serif: 'Poppins', sans-serif;
 
   --color-border: var(--border);
   --color-input: var(--input);
@@ -46,8 +46,8 @@
     --popover: hsl(0 0% 100%);
     --popover-foreground: hsl(222 47% 11%);
 
-    /* Primary: Deep Violet/Indigo - AI Feel */
-    --primary: hsl(250 60% 50%);
+    /* Primary: Vivid Violet (#7C3AED) */
+    --primary: hsl(262 83% 58%);
     --primary-foreground: hsl(0 0% 100%);
 
     --secondary: hsl(220 20% 94%);
