@@ -238,7 +238,7 @@ function App() {
         {/* Animated glow effect */}
         <div className="absolute inset-0 opacity-30" style={{ background: 'radial-gradient(circle at 30% 20%, hsl(262 83% 58% / 0.2) 0%, transparent 50%), radial-gradient(circle at 70% 80%, hsl(280 70% 60% / 0.2) 0%, transparent 50%)' }}></div>
         <div className="container max-w-5xl mx-auto px-4 md:px-6 text-center space-y-6 relative z-10">
-          <h1 className="text-3xl md:text-6xl font-serif font-medium tracking-tight text-white text-nowrap">
+          <h1 className="text-3xl md:text-6xl font-serif font-medium tracking-tight text-white text-balance">
             AI-Powered Resume Alignment
           </h1>
           <p className="text-lg text-white/85 leading-relaxed font-sans max-w-2xl mx-auto font-light">
