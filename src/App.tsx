@@ -113,7 +113,7 @@ function App() {
 
 
       const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash", generationConfig: { temperature: 0, responseMimeType: "application/json" } });
+      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite", generationConfig: { temperature: 0, responseMimeType: "application/json" } });
 
       // PROMPT: Scoring Only (Fast)
       const scoringPrompt = `
@@ -211,7 +211,7 @@ function App() {
       }
 
       const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash", generationConfig: { temperature: 0.7, responseMimeType: "application/json" } });
+      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite", generationConfig: { temperature: 0.7, responseMimeType: "application/json" } });
 
       const tipsPrompt = `
       ROLE: expert HR Recruiter and Resume Optimizer.
