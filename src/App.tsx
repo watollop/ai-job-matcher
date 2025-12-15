@@ -45,13 +45,12 @@ function App() {
       red_flags: string[];
       reasoning_summary: string;
     };
-    // Optimization tips are now part of the main result to save API calls
-    optimization_tips: Array<{
-      title: string;
-      reason: string;
-      proposal_before: string;
-      proposal_after: string;
-    }>;
+    analysis: {
+      critical_skills_missing: string[] | null;
+      proficiency_highlights: string[];
+      red_flags: string[];
+      reasoning_summary: string;
+    };
   }
 
   const [jobOffer, setJobOffer] = useState('');
@@ -95,17 +94,14 @@ function App() {
       }
 
       // Check Cache
-      const cacheKey = `jobscorer_full_${generateHash(jobOffer + cvText)}`;
+      const cacheKey = `jobscorer_score_${generateHash(jobOffer + cvText)}`;
       const cachedResult = localStorage.getItem(cacheKey);
 
       if (cachedResult) {
-        console.log("Using cached full result");
+        console.log("Using cached score result");
         const parsed = JSON.parse(cachedResult);
-        // Force 6s delay even for cache hits to show 'Support' message
-        setTimeout(() => {
-          setScoringResult(parsed);
-          setIsScoring(false);
-        }, 6000);
+        setScoringResult(parsed);
+        setIsScoring(false);
         return;
       }
 
@@ -124,12 +120,12 @@ function App() {
       const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash", generationConfig: { temperature: 0, responseMimeType: "application/json" } });
 
-      // COMBINED PROMPT: Scoring + Tips to save API costs
+      // PROMPT: Scoring Only (Fast)
       const scoringPrompt = `
       ROLE AND OBJECTIVE
       You are the "Algorithmic Auditor" and "Resume Optimizer." Your goal is to:
       1. QUANTIFY candidate compatibility (0-100) using a strict Multi-Vector Hub Model.
-      2. GENERATE specific optimization tips to fill the identified gaps.
+      2. Analyze GAPS for downstream optimization.
 
       INPUT DATA
       Job Description:
@@ -167,29 +163,14 @@ function App() {
       Raw Score -> Weighted Sum -> Penalties -> Final Constraint (0-100).
       Rounding Constraint: You MUST round the final Total Score AND each individual Vector Score to the nearest multiple of 10 (e.g., 68 -> 70, 72 -> 70, 0, 10, 20...). Never return a number like 65 or 68.
 
-      --------------------------
-      PART 2: OPTIMIZATION TIPS
-      --------------------------
-      Analyze the gap between the JD and CV. Provide exactly 10 impactful changes.
-      PRIORITY: Address the specific "Missing Critical Skills" or "Red Flags" identified in Part 1 first.
-
       OUTPUT FORMAT (JSON ONLY)
       {
         "candidate_profile": { ... },
         "compatibility_score": { ... },
         "analysis": { ... },
-        "optimization_tips": [
-          {
-             "title": "String (Short headline)",
-             "reason": "String (Why this helps)",
-             "proposal_before": "String (Original text or N/A)",
-             "proposal_after": "String (Optimized rewrite)"
-          },
-          ... (10 items)
-        ]
       }
       Analysis Schema:
-      { "critical_skills_missing": ["String"], "proficiency_highlights": ["String"], "red_flags": ["String"], "reasoning_summary": "String" }
+      { "candidate_profile": { "name": "String", "current_role": "String", "calculated_experience_years": "Number", "cpr_metric": "Float", "stability_status": "String" }, "compatibility_score": { "total_score": "Number", "rating_tier": "String", "vector_breakdown": { "hard_skills": "Number", "experience": "Number", "soft_skills": "Number", "education": "Number", "logistics": "Number" } }, "analysis": { "critical_skills_missing": ["String"], "proficiency_highlights": ["String"], "red_flags": ["String"], "reasoning_summary": "String" } }
       `;
 
       const result = await model.generateContent(scoringPrompt);
@@ -211,23 +192,83 @@ function App() {
   };
 
   const handleGenerateTips = async () => {
-    // Start "loading"
+    if (!apiKey || !cvFile || !jobOffer || !scoringResult) return;
+
     setIsGeneratingTips(true);
     setError(null);
 
-    // Fake delay to allow user to see the "Buy me a coffee" support message
-    // as requested by the user strategy (6 seconds)
-    setTimeout(() => {
-      if (scoringResult?.optimization_tips) {
-        // Use the pre-calculated tips from the main API call
-        setTipsResult(JSON.stringify(scoringResult.optimization_tips));
+    // Minimum delay to ensure "Support" message is seen, even if API is fast
+    const minDelayPromise = new Promise(resolve => setTimeout(resolve, 6000));
+
+    try {
+      const cvText = await extractTextFromPDF(cvFile);
+
+      // Check Cache
+      const cacheKey = `jobscorer_tips_${generateHash(jobOffer + cvText)}`;
+      const cachedResult = localStorage.getItem(cacheKey);
+
+      if (cachedResult) {
+        console.log("Using cached tips result");
+        await minDelayPromise; // Wait for delay
+        setTipsResult(cachedResult);
         setIsGeneratingTips(false);
-      } else {
-        // Fallback for old/legacy results (shouldn't happen often)
-        setError("Tips not found in this analysis. Please run the score again.");
-        setIsGeneratingTips(false);
+        return;
       }
-    }, 6000);
+
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash", generationConfig: { temperature: 0.7, responseMimeType: "application/json" } });
+
+      const tipsPrompt = `
+      ROLE: expert HR Recruiter and Resume Optimizer.
+      TASK: Generate exactly 10 impactful resume optimization tips to bridge the gap between candidate and job.
+
+      CONTEXT FROM ANALYSIS:
+      - Missing Skills: ${scoringResult.analysis.critical_skills_missing?.join(', ') || "None"}
+      - Red Flags: ${scoringResult.analysis.red_flags.join(', ') || "None"}
+
+      INPUT DATA:
+      JOB DESCRIPTION:
+      ${jobOffer}
+
+      RESUME CONTENT:
+      ${cvText}
+
+      INSTRUCTIONS:
+      1. Address the "Missing Skills" and "Red Flags" immediately in the first 3-4 tips.
+      2. Provide concrete rewrite proposals.
+
+      OUTPUT FORMAT (JSON ARRAY):
+      [
+        {
+          "title": "String",
+          "reason": "String",
+          "proposal_before": "String",
+          "proposal_after": "String"
+        },
+        ...
+      ]
+      `;
+
+      // Run API call and Delay in parallel
+      const [result] = await Promise.all([
+        model.generateContent(tipsPrompt),
+        minDelayPromise
+      ]);
+
+      const response = await result.response;
+      const text = response.text();
+
+      // Save to Cache
+      localStorage.setItem(cacheKey, text);
+
+      setTipsResult(text);
+
+    } catch (err: any) {
+      console.error('Error generating tips:', err);
+      setError(err.message || 'Could not generate optimization tips.');
+    } finally {
+      setIsGeneratingTips(false);
+    }
   };
 
   return (
