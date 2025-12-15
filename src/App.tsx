@@ -45,12 +45,7 @@ function App() {
       red_flags: string[];
       reasoning_summary: string;
     };
-    analysis: {
-      critical_skills_missing: string[] | null;
-      proficiency_highlights: string[];
-      red_flags: string[];
-      reasoning_summary: string;
-    };
+
   }
 
   const [jobOffer, setJobOffer] = useState('');
